@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
-import { FaSun } from "react-icons/fa6";
-import { FaMoon } from "react-icons/fa6";
-import Button from "./Button";
-import { getUsername } from "../redux/userSlice";
-import useTheme from "../hooks/useTheme";
+import { useSelector } from 'react-redux';
+import { FaSun } from 'react-icons/fa6';
+import { FaMoon } from 'react-icons/fa6';
+import Button from './Button';
+import { getUsername } from '../redux/userSlice';
+import useTheme from '../hooks/useTheme';
 
 function Header() {
   const userName = useSelector(getUsername);
@@ -11,14 +11,14 @@ function Header() {
 
   return (
     <header>
-      <div className="flex items-center justify-between px-3 py-3 space-x-4 font-semibold bg-blue-500 md:justify-end dark:bg-blue-600 ">
-        <Button onClick={handleSwitchTheme} variation={"round"}>
-          {theme === "light" ? <FaSun /> : <FaMoon />}
+      <div className="flex items-center justify-around px-3 py-3 space-x-4 font-semibold bg-blue-500 sm:justify-end dark:bg-blue-600 ">
+        <Button onClick={handleSwitchTheme} variation={'round'}>
+          {theme === 'light' ? <FaMoon /> : <FaSun />}
         </Button>
 
         <p className=" text-stone-800 dark:text-stone-300">hello, {userName}</p>
 
-        <Button variation={"primary"}>
+        <Button variation={'primary'}>
           <span>change name</span>
         </Button>
 
