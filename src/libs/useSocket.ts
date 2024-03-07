@@ -1,40 +1,38 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Socket, io } from "socket.io-client";
-import { changeCode, changeSocket, getSocket } from "../redux/codeBlockSlice";
-import { useEffect, useRef } from "react";
+import { useDispatch } from 'react-redux';
+import { Socket, io } from 'socket.io-client';
+import { changeCode } from '../redux/codeBlockSlice';
+import { useEffect, useRef } from 'react';
+import { changeRole } from '../redux/userSlice';
 
 function useSocket() {
   const dispatch = useDispatch();
-  const socketState = useSelector(getSocket);
-  const socketRef = useRef<Socket | null>(null);
+  const socketRef = useRef<Socket | null>(io(import.meta.env.VITE_HOST_URL));
 
   useEffect(() => {
-    const initSocket = () => {
-      const socket = io(import.meta.env.VITE_HOST_URL);
-      socketRef.current = socket;
-      dispatch(changeSocket(socket));
-      return () => {
-        socket.disconnect();
-      };
+    const cleanup = () => {
+      socketRef.current?.disconnect();
     };
-
-    const cleanup = initSocket();
     return cleanup;
-  }, [dispatch]);
+  }, [socketRef]);
 
-  socketRef.current?.on("receiveCode", (newCode) => {
+  socketRef.current?.on('receiveCode', (newCode) => {
     dispatch(changeCode(newCode));
   });
 
+  socketRef.current?.on('receiveRole', (role) => {
+    dispatch(changeRole(role));
+  });
+
   const joinRoom = (roomName: string) => {
-    socketRef.current?.emit("joinRoom", roomName);
+    socketRef.current?.emit('joinRoom', roomName);
   };
 
   const sendCode = (roomName: string, code: string) => {
-    socketRef.current?.emit("sendCode", { room: roomName, code });
+    socketRef.current?.emit('sendCode', { room: roomName, code });
   };
 
   return {
+    socketRef,
     joinRoom,
     sendCode,
   };

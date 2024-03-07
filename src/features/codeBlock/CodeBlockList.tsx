@@ -1,9 +1,9 @@
-import CodeBlockCard from "./CodeBlockCard";
-import { getAllCodeBlocks } from "../../services/codeBlockService";
-import { useLoaderData } from "react-router-dom";
-import Loader from "../../components/Loader";
-import { CodeBlock } from "../../models/codeBlockModel";
-import useIsLoading from "../../hooks/useIsLoading";
+import CodeBlockCard from './CodeBlockCard';
+import { getAllCodeBlocks } from '../../services/codeBlockService';
+import { useLoaderData } from 'react-router-dom';
+import Loader from '../../components/Loader';
+import { CodeBlock } from '../../models/codeBlockModel';
+import useIsLoading from '../../hooks/useIsLoading';
 
 function CodeBlockList() {
   const codeBlocks = useLoaderData() as CodeBlock[];

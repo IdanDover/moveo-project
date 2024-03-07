@@ -1,13 +1,12 @@
-import { useNavigate, useParams } from "react-router-dom";
-import useSocket from "../libs/useSocket";
-import { useDispatch, useSelector } from "react-redux";
-import { changeCode, changeRoomName, getCode } from "../redux/codeBlockSlice";
-import useIsLoading from "../hooks/useIsLoading";
-import Loader from "../components/Loader";
-import CodeBlock from "../features/codeBlock/CodeBlock";
+import { useNavigate, useParams } from 'react-router-dom';
+import useSocket from '../libs/useSocket';
+import { useDispatch } from 'react-redux';
+import { changeRoomName } from '../redux/codeBlockSlice';
+import useIsLoading from '../hooks/useIsLoading';
+import Loader from '../components/Loader';
+import CodeBlock from '../features/codeBlock/CodeEditor';
 
 function CodePage() {
-  const code = useSelector(getCode);
   const dispatch = useDispatch();
   const { joinRoom, sendCode } = useSocket();
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ function CodePage() {
   }
 
   if (!room) {
-    navigate("/lobby");
+    navigate('/lobby');
     return;
   }
 

@@ -1,26 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import { Socket } from "socket.io-client";
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 type InitialStateType = {
-  socket: Socket | null;
   name: string;
   code: string;
 };
 
 const initialState: InitialStateType = {
-  socket: null,
-  name: "code",
-  code: "",
+  name: 'code',
+  code: '',
 };
 
 const codeBlockSlice = createSlice({
-  name: "codeBlock",
+  name: 'codeBlock',
   initialState,
   reducers: {
-    changeSocket(state, action) {
-      state.socket = action.payload;
-    },
     changeCode(state, action) {
       state.code = action.payload;
     },
@@ -31,8 +25,6 @@ const codeBlockSlice = createSlice({
 });
 
 export default codeBlockSlice.reducer;
-export const { changeRoomName, changeSocket, changeCode } =
-  codeBlockSlice.actions;
+export const { changeRoomName, changeCode } = codeBlockSlice.actions;
 export const getRoomName = (state: RootState) => state.codeBlock.name;
-export const getSocket = (state: RootState) => state.codeBlock.socket;
 export const getCode = (state: RootState) => state.codeBlock.code;

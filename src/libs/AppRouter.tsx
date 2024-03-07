@@ -1,17 +1,17 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy } from 'react';
 import {
   Navigate,
   RouterProvider,
   createBrowserRouter,
-} from "react-router-dom";
-import { loader as codePageLoader } from "../features/codeBlock/CodeBlockList";
+} from 'react-router-dom';
+import { loader as codePageLoader } from '../features/codeBlock/CodeBlockList';
 
-import AppLayout from "../components/AppLayout";
-import Page404 from "../pages/Page404";
-import NotFound from "../components/NotFound";
-import FullPageLoader from "../components/FullPageLoader";
-const Lobby = lazy(() => import("../pages/Lobby"));
-const CodePage = lazy(() => import("../pages/CodePage"));
+import AppLayout from '../components/AppLayout';
+import Page404 from '../pages/Page404';
+import NotFound from '../components/NotFound';
+import FullPageLoader from '../components/FullPageLoader';
+const Lobby = lazy(() => import('../pages/Lobby'));
+const CodePage = lazy(() => import('../pages/CodePage'));
 
 const router = createBrowserRouter([
   {
@@ -19,21 +19,21 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Navigate replace to="lobby" />,
       },
       {
-        path: "/lobby",
+        path: '/lobby',
         element: <Lobby />,
         loader: codePageLoader,
         errorElement: <NotFound />,
       },
       {
-        path: "/code-block/:room",
+        path: '/code-block/:room',
         element: <CodePage />,
       },
       {
-        path: "*",
+        path: '*',
         element: <Page404 />,
       },
     ],
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
 function AppRouter() {
   return (
     <Suspense fallback={<FullPageLoader />}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </Suspense>
   );
 }
