@@ -4,14 +4,14 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import { loader as codeBlockLoader } from "../features/codeBlock/CodeBlockList";
+import { loader as codePageLoader } from "../features/codeBlock/CodeBlockList";
 
 import AppLayout from "../components/AppLayout";
 import Page404 from "../pages/Page404";
 import NotFound from "../components/NotFound";
 import FullPageLoader from "../components/FullPageLoader";
 const Lobby = lazy(() => import("../pages/Lobby"));
-const CodeBlock = lazy(() => import("../pages/CodeBlock"));
+const CodePage = lazy(() => import("../pages/CodePage"));
 
 const router = createBrowserRouter([
   {
@@ -25,12 +25,12 @@ const router = createBrowserRouter([
       {
         path: "/lobby",
         element: <Lobby />,
-        loader: codeBlockLoader,
+        loader: codePageLoader,
         errorElement: <NotFound />,
       },
       {
         path: "/code-block/:room",
-        element: <CodeBlock />,
+        element: <CodePage />,
       },
       {
         path: "*",

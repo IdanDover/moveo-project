@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Socket, io } from "socket.io-client";
-import { changeSocket, getSocket } from "../redux/codeBlockSlice";
+import { changeCode, changeSocket, getSocket } from "../redux/codeBlockSlice";
 import { useEffect, useRef } from "react";
 
 function useSocket() {
@@ -22,17 +22,21 @@ function useSocket() {
     return cleanup;
   }, [dispatch]);
 
+  socketRef.current?.on("receiveCode", (newCode) => {
+    dispatch(changeCode(newCode));
+  });
+
   const joinRoom = (roomName: string) => {
     socketRef.current?.emit("joinRoom", roomName);
   };
 
-  const changeCode = (roomName: string, code: string) => {
-    socketRef.current?.emit("changedCode", { room: roomName, code });
+  const sendCode = (roomName: string, code: string) => {
+    socketRef.current?.emit("sendCode", { room: roomName, code });
   };
 
   return {
     joinRoom,
-    changeCode,
+    sendCode,
   };
 }
 
