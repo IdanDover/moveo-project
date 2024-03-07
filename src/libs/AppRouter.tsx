@@ -1,25 +1,49 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
-import FullPageLoader from '../components/FullPageLoader';
+import { Suspense, lazy } from "react";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import { loader as codeBlockLoader } from "../features/codeBlock/CodeBlockList";
 
-import AppLayout from '../components/AppLayout';
-import Lobby from '../pages/Lobby';
-import Page404 from '../pages/Page404';
-import CodeBlock from '../pages/CodeBlock';
+import AppLayout from "../components/AppLayout";
+import Page404 from "../pages/Page404";
+import NotFound from "../components/NotFound";
+import FullPageLoader from "../components/FullPageLoader";
+const Lobby = lazy(() => import("../pages/Lobby"));
+const CodeBlock = lazy(() => import("../pages/CodeBlock"));
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    errorElement: <NotFound />,
+    children: [
+      {
+        path: "/",
+        element: <Navigate replace to="lobby" />,
+      },
+      {
+        path: "/lobby",
+        element: <Lobby />,
+        loader: codeBlockLoader,
+        errorElement: <NotFound />,
+      },
+      {
+        path: "/code-block/:room",
+        element: <CodeBlock />,
+      },
+      {
+        path: "*",
+        element: <Page404 />,
+      },
+    ],
+  },
+]);
 
 function AppRouter() {
   return (
     <Suspense fallback={<FullPageLoader />}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AppLayout />}>
-            <Route path="/" element={<Navigate replace to="lobby" />} />
-            <Route path="lobby" element={<Lobby />} />
-            <Route path="code-block/:room" element={<CodeBlock />} />
-            <Route path="*" element={<Page404 />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />;
     </Suspense>
   );
 }

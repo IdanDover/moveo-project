@@ -1,6 +1,6 @@
 function Loader({ variation }: any) {
   const base =
-    "inline mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-rose-400";
+    "inline mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-400";
 
   const styles: any = {
     fullPage: `${base} w-full h-full`,

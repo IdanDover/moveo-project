@@ -1,33 +1,31 @@
-import { useEffect, useState } from 'react';
-import { CodeBlock } from '../../models/codeBlockModel';
-import CodeBlockCard from './CodeBlockCard';
-import { getAllCodeBlocks } from '../../services/codeBlockService';
+import CodeBlockCard from "./CodeBlockCard";
+import { getAllCodeBlocks } from "../../services/codeBlockService";
+import { useLoaderData } from "react-router-dom";
+import Loader from "../../components/Loader";
+import { CodeBlock } from "../../models/codeBlockModel";
+import useIsLoading from "../../hooks/useIsLoading";
 
 function CodeBlockList() {
-  const [codeBlocks, setCodeBlocks] = useState<CodeBlock[]>([]);
+  const codeBlocks = useLoaderData() as CodeBlock[];
+  const isLoading = useIsLoading();
 
-  //TODO: use a different fetching type
-  useEffect(() => {
-    const getCodeBlocks = async () => {
-      if (codeBlocks.length > 0) {
-        return;
-      }
-      const blocks = (await getAllCodeBlocks()).data;
-      setCodeBlocks(blocks);
-      console.log(blocks);
-    };
-
-    getCodeBlocks();
-  }, [codeBlocks]);
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="grid grid-cols-1 gap-4 m-2 sm:grid-cols-4">
-      <CodeBlockCard />
-      <CodeBlockCard />
-      <CodeBlockCard />
-      <CodeBlockCard />
+      {codeBlocks.map((codeBlock) => (
+        <CodeBlockCard key={codeBlock.title} block={codeBlock} />
+      ))}
     </div>
   );
 }
 
+const loader = async () => {
+  const codeBlocks = await getAllCodeBlocks();
+  return codeBlocks.data;
+};
+
 export default CodeBlockList;
+export { loader };
