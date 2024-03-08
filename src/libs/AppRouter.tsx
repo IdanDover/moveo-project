@@ -4,8 +4,8 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
-import { loader as codePageLoader } from '../features/codeExercise/CodeExerciseList';
-
+import { loader as lobbyLoader } from '../features/codeExercise/CodeExerciseList';
+import { loader as codePageLoader } from '../features/codeExercise/CodeEditor';
 import AppLayout from '../components/AppLayout';
 import Page404 from '../pages/Page404';
 import NotFound from '../components/NotFound';
@@ -25,12 +25,14 @@ const router = createBrowserRouter([
       {
         path: '/lobby',
         element: <Lobby />,
-        loader: codePageLoader,
+        loader: lobbyLoader,
         errorElement: <NotFound />,
       },
       {
         path: '/code-exercise/:room',
         element: <CodePage />,
+        loader: codePageLoader,
+        errorElement: <NotFound />,
       },
       {
         path: '*',
