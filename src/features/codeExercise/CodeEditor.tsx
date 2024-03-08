@@ -1,29 +1,38 @@
-import { changeCode, getCode, getRoomName } from '../../redux/codeBlockSlice';
+import { changeCode, getCode, getTitle } from '../../redux/codeExerciseSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useTheme from '../../hooks/useTheme';
-import 'highlight.js/styles/github.css';
 import { Editor } from '@monaco-editor/react';
 import { getRole } from '../../redux/userSlice';
+import useSocket from '../../libs/useSocket';
+import { useNavigate } from 'react-router-dom';
 
-type Props = {
-  sendCode: Function;
-};
-
-function CodeEditor({ sendCode }: Props) {
+function CodeEditor() {
   const dispatch = useDispatch();
   const role = useSelector(getRole);
-  const room = useSelector(getRoomName);
   const code = useSelector(getCode);
+  const room = useSelector(getTitle);
+
   const { theme } = useTheme();
+
+  const { joinRoom, sendCode } = useSocket();
+  const navigate = useNavigate();
+
+  if (!room) {
+    navigate('/lobby');
+    return;
+  }
+
+  joinRoom(room);
 
   const handleChange = (value: string | undefined) => {
     if (!value) return;
-    dispatch(changeCode(value));
+    if (value === code) return;
+
     sendCode(room, value);
   };
 
   return (
-    <div className="p-4 m-5 text-gray-800 bg-white rounded-md dark:bg-gray-800 dark:text-white">
+    <div className="py-4 my-5 text-gray-800 bg-white rounded-md dark:bg-gray-800 dark:text-white">
       <Editor
         height="60vh"
         width="70vw"

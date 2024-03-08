@@ -1,12 +1,12 @@
-import CodeBlockCard from './CodeBlockCard';
-import { getAllCodeBlocks } from '../../services/codeBlockService';
+import { getAllCodeExercises } from '../../services/codeExerciseService';
 import { useLoaderData } from 'react-router-dom';
 import Loader from '../../components/Loader';
-import { CodeBlock } from '../../models/codeBlockModel';
+import { CodeExerciseType } from '../../models/codeExerciseModel';
 import useIsLoading from '../../hooks/useIsLoading';
+import CodeExerciseCard from './CodeExerciseCard';
 
 function CodeBlockList() {
-  const codeBlocks = useLoaderData() as CodeBlock[];
+  const codeExercises = useLoaderData() as CodeExerciseType[];
   const isLoading = useIsLoading();
 
   if (isLoading) {
@@ -15,15 +15,15 @@ function CodeBlockList() {
 
   return (
     <div className="grid grid-cols-1 gap-4 m-2 sm:grid-cols-4">
-      {codeBlocks.map((codeBlock) => (
-        <CodeBlockCard key={codeBlock.title} block={codeBlock} />
+      {codeExercises.map((codeExercise) => (
+        <CodeExerciseCard key={codeExercise.title} exercise={codeExercise} />
       ))}
     </div>
   );
 }
 
 const loader = async () => {
-  const codeBlocks = await getAllCodeBlocks();
+  const codeBlocks = await getAllCodeExercises();
   return codeBlocks.data;
 };
 

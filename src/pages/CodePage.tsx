@@ -1,34 +1,20 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import useSocket from '../libs/useSocket';
-import { useDispatch } from 'react-redux';
-import { changeRoomName } from '../redux/codeBlockSlice';
-import useIsLoading from '../hooks/useIsLoading';
-import Loader from '../components/Loader';
-import CodeBlock from '../features/codeBlock/CodeEditor';
+import { useSelector } from 'react-redux';
+import CodeEditor from '../features/codeExercise/CodeEditor';
+import { getExplanation, getTitle } from '../redux/codeExerciseSlice';
 
 function CodePage() {
-  const dispatch = useDispatch();
-  const { joinRoom, sendCode } = useSocket();
-  const navigate = useNavigate();
-  const isLoading = useIsLoading();
-  const { room } = useParams();
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (!room) {
-    navigate('/lobby');
-    return;
-  }
-
-  joinRoom(room);
-
-  dispatch(changeRoomName(room));
+  const title = useSelector(getTitle);
+  const explanation = useSelector(getExplanation);
 
   return (
-    <div>
-      <CodeBlock sendCode={sendCode} />
+    <div className="mt-4">
+      <h2 className="py-2 my-3 text-3xl font-bold text-center text-stone-700 dark:text-stone-200">
+        {title}
+      </h2>
+      <p className="py-2 my-3 text-lg text-stone-700 dark:text-stone-200">
+        {explanation}
+      </p>
+      <CodeEditor />
     </div>
   );
 }

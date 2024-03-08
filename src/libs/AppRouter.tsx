@@ -4,7 +4,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
-import { loader as codePageLoader } from '../features/codeBlock/CodeBlockList';
+import { loader as codePageLoader } from '../features/codeExercise/CodeExerciseList';
 
 import AppLayout from '../components/AppLayout';
 import Page404 from '../pages/Page404';
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: '/code-block/:room',
+        path: '/code-exercise/:room',
         element: <CodePage />,
       },
       {

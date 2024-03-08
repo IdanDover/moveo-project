@@ -1,4 +1,4 @@
-import CodeBlockList from "../features/codeBlock/CodeBlockList";
+import CodeBlockList from '../features/codeExercise/CodeExerciseList';
 
 function Lobby() {
   return (
