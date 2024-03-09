@@ -23,9 +23,13 @@ handler.interceptors.response.use(
       throw new Error(error.response.data.message);
     }
     if (error.request) {
-      throw new Error('אנחנו חווים כמה בעיות, בבקשה תנסו בעוד מספר דקות');
+      throw new Error(
+        'We are experiencing some problems, please try again in a few minutes'
+      );
     }
-    throw new Error('אופס, נראה שהייתה בעיה במה שניסית לעשות');
+    throw new Error(
+      'Oops, seems like there was a problem with what you tried to do'
+    );
   }
 );
 

@@ -21,7 +21,7 @@ const codeExerciseSlice = createSlice({
       state.slug = slug;
       state.code = code;
       state.explanation = explanation;
-      state.solution = solution ?? undefined;
+      state.solution = solution;
       state.level = level ?? 'intermediate';
     },
     changeCode(state, action) {

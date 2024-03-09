@@ -19,7 +19,7 @@ function CodeExerciseCard({ exercise }: Props) {
 
   return (
     <div className="flex flex-col items-center max-w-sm m-2 overflow-hidden rounded shadow-lg">
-      <pre className="w-full p-4 overflow-auto bg-sky-100 dark:bg-slate-700 h-36 dark:text-stone-200">
+      <pre className="w-full p-4 overflow-hidden bg-sky-100 dark:bg-slate-700 h-36 dark:text-stone-200">
         <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
       </pre>
       <div className="px-6 py-4">

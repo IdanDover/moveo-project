@@ -24,6 +24,10 @@ function useSocket() {
     socketRef.current?.emit('joinRoom', roomName);
   };
 
+  const leaveRoom = (roomName: string) => {
+    socketRef.current?.emit('leaveRoom', roomName);
+  };
+
   const sendCode = (roomName: string, code: string) => {
     socketRef.current?.emit('sendCode', { room: roomName, code });
   };
@@ -31,6 +35,7 @@ function useSocket() {
   return {
     socketRef,
     joinRoom,
+    leaveRoom,
     sendCode,
   };
 }

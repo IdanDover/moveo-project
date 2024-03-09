@@ -4,6 +4,7 @@ import { FaMoon } from 'react-icons/fa6';
 import Button from './Button';
 import { getUsername } from '../redux/userSlice';
 import useTheme from '../hooks/useTheme';
+import Logo from './Logo';
 
 function Header() {
   const userName = useSelector(getUsername);
@@ -11,57 +12,17 @@ function Header() {
 
   return (
     <header>
-      <div className="flex items-center justify-around px-3 py-3 space-x-4 font-semibold bg-blue-500 sm:justify-end dark:bg-blue-600 ">
-        <Button onClick={handleSwitchTheme} variation={'round'}>
-          {theme === 'light' ? <FaMoon /> : <FaSun />}
-        </Button>
-
-        <p className=" text-stone-800 dark:text-stone-300">hello, {userName}</p>
-
-        <Button variation={'primary'}>
-          <span>change name</span>
-        </Button>
-
-        {/* {user ? (
-          <>
-            <Button
-              disabled={false}
-              onClick={logoutUser}
-              type={"secondary_round"}
-            >
-              <p className="text-xs text-stone-700">צא</p>
-            </Button>
-            <LinkButton
-              to="/user"
-              className="text-xs text-stone-700 dark:text-stone-200"
-            >{`הי ${user.firstName}`}</LinkButton>
-          </>
-        ) : (
-          <Button
-            to={"login"}
-            disabled={false}
-            type={location.pathname.includes("login") ? "primary" : "secondary"}
-          >
-            <p className="text-xs text-stone-700">מפה נכנסים</p>
+      <div className="flex items-center justify-between px-3 py-3 bg-blue-500 dark:bg-blue-600">
+        <Logo />
+        <div className="flex items-center justify-around px-3 py-3 space-x-4 font-semibold sm:justify-end">
+          <Button onClick={handleSwitchTheme} variation={'round'}>
+            {theme === 'light' ? <FaMoon /> : <FaSun />}
           </Button>
-        )}
 
-        <Button
-          to={"tasks"}
-          disabled={false}
-          type={`${
-            location.pathname.includes("tasks") ? "primary" : "secondary"
-          }`}
-        >
-          <p className="text-xs text-stone-700">משימות</p>
-        </Button>
-        <Button
-          to={"home"}
-          disabled={false}
-          type={location.pathname.includes("home") ? "primary" : "secondary"}
-        >
-          <p className="text-xs text-stone-700">כיתות</p>
-        </Button> */}
+          <p className=" text-stone-800 dark:text-stone-300">
+            hello, {userName}
+          </p>
+        </div>
       </div>
     </header>
   );
