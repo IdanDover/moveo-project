@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# Moveo Project Front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I used vite+react+typescript to run this site and I deployed it on netlify
+please note that I use free tier for the backend and it may have some down time so if you try to enter the website and you get an error please try again and be patient😊
 
-Currently, two official plugins are available:
+# Libraries I used
+- redux
+- react-router-dom
+- monaco-editor
+- highlight.js
+- socket.io-client
+- axios
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Run Locally
+- first make sure you have the backend running. see how here ➡️ https://github.com/IdanDover/moveo-project-back
+- clone the repository
+- run 'npm i' in terminal on project directory
+- run npm dev
+- enjoy 😀
