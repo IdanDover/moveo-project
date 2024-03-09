@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Socket, io } from 'socket.io-client';
 import { changeCode } from '../redux/codeExerciseSlice';
 import { useEffect, useRef } from 'react';
-import { changeRole } from '../redux/userSlice';
+import { RoleOptions, changeRole } from '../redux/userSlice';
 
 const socket = io(import.meta.env.VITE_HOST_URL);
 
@@ -28,8 +28,8 @@ function useSocket() {
     socketRef.current?.emit('leaveRoom', roomName);
   };
 
-  const sendCode = (roomName: string, code: string) => {
-    socketRef.current?.emit('sendCode', { room: roomName, code });
+  const sendCode = (roomName: string, role: RoleOptions, code: string) => {
+    socketRef.current?.emit('sendCode', { room: roomName, role, code });
   };
 
   return {

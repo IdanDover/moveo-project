@@ -1,6 +1,11 @@
 import { memo, useEffect } from 'react';
-import { getCode, getSolution, getTitle } from '../../redux/codeExerciseSlice';
-import { useSelector } from 'react-redux';
+import {
+  changeCode,
+  getCode,
+  getSolution,
+  getTitle,
+} from '../../redux/codeExerciseSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import useTheme from '../../hooks/useTheme';
 import { Editor } from '@monaco-editor/react';
 import { getRole } from '../../redux/userSlice';
@@ -10,6 +15,7 @@ import { createPortal } from 'react-dom';
 import BigSmileyFace from '../../components/BigSmileyFace';
 
 const CodeEditor = memo(function CodeEditor() {
+  const dispatch = useDispatch();
   const role = useSelector(getRole);
   const code = useSelector(getCode);
   const solution = useSelector(getSolution);
@@ -30,7 +36,8 @@ const CodeEditor = memo(function CodeEditor() {
   const handleChange = (value: string | undefined) => {
     if (!value) return;
     if (value === code) return;
-    sendCode(room, value);
+    sendCode(room, role, value);
+    dispatch(changeCode(value));
   };
 
   return (

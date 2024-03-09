@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-type themeOptions = 'light' | 'dark';
-type roleOptions = 'instructor' | 'student' | undefined;
+export type ThemeOptions = 'light' | 'dark';
+export type RoleOptions = 'instructor' | 'student' | undefined;
 
 type InitialStateType = {
   name: string;
-  role?: roleOptions;
-  theme: themeOptions;
+  role?: RoleOptions;
+  theme: ThemeOptions;
 };
 
 const initialState: InitialStateType = {
-  theme: (localStorage.getItem('theme') as themeOptions | undefined) ?? 'light',
+  theme: (localStorage.getItem('theme') as ThemeOptions | undefined) ?? 'light',
   name: 'user',
 };
 
